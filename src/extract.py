@@ -44,10 +44,10 @@ def extract_data(file_path: str) -> pd.DataFrame:
 def main():
     load_dotenv()
     
-    file_path = os.getenv("FILE_PATH")
+    file_path = os.getenv("RAW_FILE_PATH")
 
     if not file_path:
-        raise ValueError("FILE_PATH environment variable is not set")
+        raise ValueError("RAW_FILE_PATH environment variable is not set")
 
     df = extract_data(file_path)
 
