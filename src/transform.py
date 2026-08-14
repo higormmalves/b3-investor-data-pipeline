@@ -1,4 +1,3 @@
-from extract import extract_data
 import pandas as pd
 import logging
 
@@ -28,9 +27,3 @@ def transform_data(dataframe: pd.DataFrame) -> pd.DataFrame:
     except Exception as e:
         logger.error(f"Error transforming data: {e}")
         raise
-    
-if __name__ == "__main__":
-    df = extract_data("../data/raw/b3_investors_data.csv")
-    df_transformed = transform_data(df)
-
-    print(df_transformed.head())
