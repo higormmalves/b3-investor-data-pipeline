@@ -2,17 +2,17 @@
 
 ## Problem
 
-As part of my journey toward becoming a **Data Engineer**, I wanted to build my first end-to-end ETL pipeline to apply Data Engineering concepts beyond data analysis.
+B3 publishes historical data on individual investor demographics as a raw, row-oriented CSV file with inconsistent headers and no defined schema — not ready for direct analytical consumption.
 
-The goal was to work with a real-world dataset and practice fundamental Data Engineering concepts such as data extraction, transformation, validation, file format optimization, environment configuration, and data analysis.
+Row-oriented formats like CSV also don't scale well for analytical workloads: every query has to scan full rows even when only a few columns are needed, and there's no compression or embedded schema to catch type errors early.
 
-A particular challenge was working with the original CSV dataset. CSV is a row-oriented text format that is less efficient for analytical workloads compared to columnar formats such as Parquet.
+This project builds a small ETL pipeline that turns that raw file into a clean, typed, columnar dataset ready for analysis.
 
 ---
 
 ## Solution
 
-I developed a Python-based ETL pipeline that extracts data from a CSV file, transforms and validates the dataset, and persists the processed data in **Parquet** format for analytical use.
+I developed a Python-based ETL pipeline that extracts data from a CSV file, cleans and transforms the dataset, and persists the processed data in **Parquet** format for analytical use.
 
 The pipeline follows this flow:
 
@@ -23,7 +23,7 @@ CSV
 Extract
  │
  ▼
-Transform & Validate
+Transform
  │
  ▼
 Load as Parquet
@@ -42,7 +42,6 @@ During the transformation stage, the data is cleaned and prepared for analysis, 
 
 * Data type conversion
 * Handling missing and invalid values
-* Data validation
 * Column standardization
 * Creation of derived metrics
 
@@ -64,14 +63,24 @@ A `.env.example` file is provided as a template for the required environment var
 
 ## Results
 
-The pipeline successfully produces a cleaned and transformed dataset in Parquet format, which is then consumed by the analysis notebook.
+The pipeline transforms an 11-row raw CSV (2016–2026) into a cleaned, typed, analysis-ready Parquet file with standardized column names.
+
+| Metric                          | 2016    | 2026      |
+|----------------------------------|---------|-----------|
+| Total individual investors (B3)  | 564,529 | 6,573,856 |
+| Female share                     | 23.10%  | 26.64%    |
+| Male share                       | 76.90%  | 73.36%    |
+
+Female participation grew from 23.10% to 26.64% over the period — a modest but consistent increase, even as the total number of individual investors grew more than 11x.
+
+Full exploratory analysis available in `notebooks/exploratory_analysis.ipynb`.
 
 This project allowed me to put several Data Engineering concepts into practice:
 
 * Building an ETL pipeline with Python
 * Working with CSV and Parquet
 * Data cleaning and transformation
-* Data type validation
+* Data type conversion
 * Handling missing and invalid data
 * Environment variable management
 * Separating configuration from application code
@@ -93,8 +102,8 @@ The project also gave me hands-on experience transforming raw data into a proces
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/higormmalves/b3-investors-etl-pipeline.git
+cd b3-investors-etl-pipeline
 ```
 
 ### 2. Create a virtual environment
@@ -105,8 +114,12 @@ python -m venv .venv
 
 Activate it:
 
-**PowerShell**
+**macOS/Linux**
+```bash
+source .venv/bin/activate
+```
 
+**Windows PowerShell**
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
@@ -121,8 +134,12 @@ pip install -r requirements.txt
 
 Create a `.env` file based on the `.env.example` file.
 
-**Windows PowerShell:**
+**macOS/Linux**
+```bash
+cp .env.example .env
+```
 
+**Windows PowerShell**
 ```powershell
 Copy-Item .env.example .env
 ```
@@ -135,7 +152,7 @@ Then update the variables in `.env` according to your local environment.
 python main.py
 ```
 
-The pipeline will extract, transform, validate, and save the processed dataset as a Parquet file.
+The pipeline will extract, transform, and save the processed dataset as a Parquet file.
 
 ### 6. Run the notebook
 
@@ -151,15 +168,11 @@ Open `exploratory_analysis.ipynb` from the `notebooks/` directory and run the an
 
 ## Technologies
 
-* Python
-* Pandas
-* PyArrow
-* Python-dotenv
-* Matplotlib
-* Jupyter Notebook
-* Parquet
-* Git
-* GitHub
+**Pipeline:** Python · Pandas · PyArrow · python-dotenv
+
+**Analysis:** Jupyter Notebook · Matplotlib
+
+**Tooling:** Git · GitHub
 
 ---
 
@@ -196,7 +209,7 @@ etl-data-pipeline/
 
 As I continue developing my Data Engineering skills, I plan to evolve this project by adding:
 
-* Automated data quality checks
+* Automated data quality/validation checks (schema, ranges, duplicates)
 * Unit tests
 * Docker
 * Workflow orchestration
@@ -212,4 +225,4 @@ I am a **Data / BI Analyst transitioning into Data Engineering**, and this proje
 
 My goal is to continuously apply Data Engineering concepts through practical projects while building a stronger foundation in **Python, SQL, ETL, data pipelines, cloud technologies, and modern data platforms**.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white)](https://www.linkedin.com/in/higormmalves/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/higormmalves/)
