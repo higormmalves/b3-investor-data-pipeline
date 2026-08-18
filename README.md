@@ -2,7 +2,7 @@
 
 ## Problem
 
-B3 publishes historical data on individual investor demographics as a raw, row-oriented CSV file with inconsistent headers and no defined schema — not ready for direct analytical consumption.
+B3 publishes historical data on individual investor demographics as a raw, row-oriented CSV file with inconsistent headers and no defined schema, not ready for direct analytical consumption.
 
 Row-oriented formats like CSV also don't scale well for analytical workloads: every query has to scan full rows even when only a few columns are needed, and there's no compression or embedded schema to catch type errors early.
 
