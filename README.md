@@ -71,7 +71,7 @@ The pipeline transforms an 11-row raw CSV (2016–2026) into a cleaned, typed, a
 | Female share                     | 23.10%  | 26.64%    |
 | Male share                       | 76.90%  | 73.36%    |
 
-Female participation grew from 23.10% to 26.64% over the period — a modest but consistent increase, even as the total number of individual investors grew more than 11x.
+Female participation grew from 23.10% to 26.64% over the period. A modest but consistent increase, even as the total number of individual investors grew more than 11x.
 
 Full exploratory analysis available in `notebooks/exploratory_analysis.ipynb`.
 
